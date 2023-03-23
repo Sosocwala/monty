@@ -73,8 +73,10 @@ int is_number(char *str);
 
 
 /* ---stack funcs--- */
-void push(stack_t **stack, unsigned int line_num);
-void pall(stack_t **stack, unsigned int line_num);
+void monty_push(stack_t **stack, unsigned int line_num);
+void monty_pall(stack_t **stack, unsigned int line_num);
+void monty_swap(stack_t **stack, unsigned int line_num);
+void monty_nop(stack_t **stack, unsigned int line_num);
 
 
 #endif /* STACKS */
