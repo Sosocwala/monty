@@ -72,6 +72,10 @@ int set_global_opcode(char *line);
 int is_number(char *str);
 
 
+/* ---free_stack--- */
+void free_stack(stack_t **stack);
+
+
 /* ---stack funcs--- */
 void monty_push(stack_t **stack, unsigned int line_num);
 void monty_pall(stack_t **stack, unsigned int line_num);

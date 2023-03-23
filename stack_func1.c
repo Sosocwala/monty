@@ -19,6 +19,7 @@ void monty_push(stack_t **stack, unsigned int line_num)
 		fprintf(stderr, "Error: malloc failed\n");
 		fclose(bytecode.file);
 		free(bytecode.line);
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 	if (is_number(bytecode.arg) == 0)
@@ -26,6 +27,7 @@ void monty_push(stack_t **stack, unsigned int line_num)
 		fprintf(stderr, "L%d: usage: push integer\n", line_num);
 		fclose(bytecode.file);
 		free(bytecode.line);
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 
@@ -83,6 +85,7 @@ void monty_swap(stack_t **stack, unsigned int line_num)
 		fprintf(stderr, "L%d: can't swap, stack too short", line_num);
 		fclose(bytecode.file);
 		free(bytecode.line);
+		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 

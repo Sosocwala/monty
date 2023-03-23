@@ -31,7 +31,7 @@ int main(int ac, char *av[])
 	}
 
 	read_lines(&stack);
-/*	free_dlistint();*/
+	free_stack(&stack);
 
 	return (0);
 }
