@@ -29,69 +29,56 @@ void monty_push(stack_t **stack, unsigned int line_num)
 		exit(EXIT_FAILURE);
 	}
 
+	/* adjust position of new element in the stack */
 	new->n = atoi(bytecode.arg);
 	new->next = NULL;
+	new->prev = head;
 
-	if (head == NULL)
-	{
-		new->prev = head;
-		*stack = new;
-	}
-	else /* not an empty stack */
-	{
-		while (head->next != NULL) /* move to last stack element */
-			head = head->next;
-
+	if (head != NULL)
 		head->next = new;
 
-		new->prev = head;
-	}
+	/* POSITION STACK POINTER to pointer to the top of stack */
+	*stack = new;
 }
 
 /**
  * monty_pall - prints all the elements of the doubly linked stack
  * from the top.
  *
- * @stack: the head of the stack
+ * @stack: points to top of the stack
  * @line_num: the line number of the program
  *
  */
 
 void monty_pall(stack_t **stack, unsigned int line_num)
 {
-	stack_t *head;
+	stack_t *tail;
 	(void) line_num;
 
-	/* move head to the top of the stack */
-	head = *stack;
-	if (head != NULL)
-	{
-		while (head->next != NULL)
-			head = head->next;
-	}
+	tail = *stack;
 
-	while (head != NULL)
+	while (tail != NULL)
 	{
-		printf("%d\n", head->n);
-		head = head->prev;
+		printf("%d\n", tail->n);
+		tail = tail->prev;
 	}
 }
 
 /**
  * monty_swap - swaps the top two elements of the stack
  *
- * @stack: the base of the stack
+ * @stack: points to top of the stack
  * @line_num: the current line number
  */
 
 void monty_swap(stack_t **stack, unsigned int line_num)
 {
-	stack_t *head, *top1st, *top2nd;
+	stack_t *tail, *top1st, *top2nd;
 
-	head = *stack;
+	tail = *stack;
 
 	/* check if the stack has at least two elements */
-	if (head == NULL || head->next == NULL)
+	if (tail == NULL || tail->prev == NULL)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short", line_num);
 		fclose(bytecode.file);
@@ -99,23 +86,18 @@ void monty_swap(stack_t **stack, unsigned int line_num)
 		exit(EXIT_FAILURE);
 	}
 
-	/* get top two elements of stack */
-	while (head != NULL)
-	{
-		if (head->next == NULL) /* top element */
-			top1st = head;
+	/* identify top two positions in stack*/
+	top1st = tail;
+	top2nd = tail->prev;
 
-		if (head->next->next == NULL) /* second top element */
-			top2nd = head;
-
-		head = head->next;
-	}
-
+	/* swap positions */
 	top1st->prev = top2nd->prev;
 	top2nd->next = top1st->next;
 
 	top1st->next = top2nd;
 	top2nd->prev = top1st;
+
+	*stack = top2nd;
 }
 
 /**
