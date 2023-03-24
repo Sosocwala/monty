@@ -13,18 +13,19 @@ void monty_push(stack_t **stack, unsigned int line_num)
 
 	head = *stack;
 
-	new = malloc(sizeof(stack_t));
-	if (new == NULL)
+	if (is_number(bytecode.arg) == 0)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
+		fprintf(stderr, "L%d: usage: push integer\n", line_num);
 		fclose(bytecode.file);
 		free(bytecode.line);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
-	if (is_number(bytecode.arg) == 0)
+
+	new = malloc(sizeof(stack_t));
+	if (new == NULL)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_num);
+		fprintf(stderr, "Error: malloc failed\n");
 		fclose(bytecode.file);
 		free(bytecode.line);
 		free_stack(stack);

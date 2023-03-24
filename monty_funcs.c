@@ -27,7 +27,10 @@ void read_lines(stack_t **stack)
 
 		status = set_global_opcode(line);
 		if (status == 0 || bytecode.op[0] == '#')
+		{
+			free(line);
 			continue;
+		}
 
 		op_func = get_op_func(bytecode.op);
 		if (op_func == NULL)
@@ -44,8 +47,9 @@ void read_lines(stack_t **stack)
 		free(line);
 	}
 
-	if (fclose(bytecode.file) == -1)
-		exit(-1);
+/*	if (fclose(bytecode.file) == -1)
+		exit(-1);*/
+	fclose(bytecode.file);
 }
 
 /**
