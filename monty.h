@@ -44,7 +44,8 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * struct opcode_s - 
+ * struct bytecode_s - opcode, its argument and
+ * the line and file values carried throughout the program
  * @op: the opcode instruction
  * @arg: the instruction's integer argument
  * @file: file to open
@@ -53,7 +54,6 @@ typedef struct instruction_s
  * Description: carries the opcode, line and file values
  * throughout the program
  */
-
 typedef struct bytecode_s
 {
 	char *op;

@@ -3,9 +3,10 @@
 /* ---monty_funcs--- */
 
 /**
- * read_lines - 
+ * read_lines - reads each line of the bytecode file,
+ * interprets the line and then executes it.
  *
- * @stack:
+ * @stack: the base of the doubly linked list stack
  */
 
 void read_lines(stack_t **stack)
@@ -13,7 +14,7 @@ void read_lines(stack_t **stack)
 	char *line;
 	size_t line_size = 0;
 	ssize_t chars = 0;
-	unsigned int line_num = 1;
+	unsigned int line_num = 0;
 	void (*op_func)(stack_t **, unsigned int);
 	int status;
 
@@ -39,7 +40,7 @@ void read_lines(stack_t **stack)
 			exit(EXIT_FAILURE);
 		}
 
-		op_func(stack, line_num);	
+		op_func(stack, line_num);
 		free(line);
 	}
 
@@ -48,9 +49,12 @@ void read_lines(stack_t **stack)
 }
 
 /**
- * get_op_func - 
+ * get_op_func - returns the function of the found opcode
+ *
  * @str: string to compare to existing opcode
  *
+ * Description: finds the correct opcode and function
+ * with the instruction_t struct.
  */
 
 void (*get_op_func(char *str)) (stack_t **, unsigned int)
@@ -84,7 +88,7 @@ void (*get_op_func(char *str)) (stack_t **, unsigned int)
 	{
 		if (strcmp(instructions[i].opcode, str) == 0)
 			return (instructions[i].f);
-		
+
 		i++;
 	}
 
@@ -94,6 +98,7 @@ void (*get_op_func(char *str)) (stack_t **, unsigned int)
 /**
  * is_number - checks if a string is a number
  * @str: string being passed
+ *
  * Return: returns 1 if string is a number, 0 otherwise
  */
 int is_number(char *str)
@@ -125,9 +130,8 @@ int is_number(char *str)
  * set_global_opcode - split a line for the opcode and its argument
  *
  * @line: the line to split
- * @line_number: the current line number
  *
- * Return: returns the opcode or null on failure
+ * Return: 1 for success, or 0 for failure
  */
 int set_global_opcode(char *line)
 {
