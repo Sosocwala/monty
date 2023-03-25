@@ -68,20 +68,20 @@ void (*get_op_func(char *str)) (stack_t **, unsigned int)
 	instruction_t instructions[] = {
 		{"push", monty_push},
 		{"pall", monty_pall},
-	/*	{"pint", monty_pint},
-		{"pop", monty_pop},*/
+		{"pint", monty_pint},
+		{"pop", monty_pop},
 		{"swap", monty_swap},
-	/*	{"add", monty_add},*/
+		{"add", monty_add},
 		{"nop", monty_nop},
-	/*	{"sub", monty_sub},
-		{"div", monty_div},
-		{"mul", monty_mul},
+		{"sub", monty_sub},
+	/*	{"div", monty_div},
+		{"mul", monty_mul},*/
 		{"mod", monty_mod},
 		{"pchar", monty_pchar},
-		{"pstr", monty_pstr},
-		{"rotl", monty_rotl},
+	/*	{"pstr", monty_pstr},
+		{"rotl", monty_rotl},*/
 		{"rotr", monty_rotr},
-		{"stack", monty_stack},
+	/*	{"stack", monty_stack},
 		{"queue", monty_queue},*/
 		{NULL, NULL}
 	};

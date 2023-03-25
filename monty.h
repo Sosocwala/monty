@@ -81,6 +81,12 @@ void monty_push(stack_t **stack, unsigned int line_num);
 void monty_pall(stack_t **stack, unsigned int line_num);
 void monty_swap(stack_t **stack, unsigned int line_num);
 void monty_nop(stack_t **stack, unsigned int line_num);
-
+void monty_add(stack_t **head, unsigned int line_num);
+void monty_mod(stack_t **head, unsigned int line_num);
+void monty_pint(stack_t **head, unsigned int line_num);
+void monty_pchar(stack_t **head, unsigned int line_num);
+void monty_pop(stack_t **head, unsigned int line_num);
+void monty_rotr(stack_t **head, __attribute__((unused)) unsigned int line_num);
+void monty_sub(stack_t **head, unsigned int line_num);
 
 #endif /* STACKS */
