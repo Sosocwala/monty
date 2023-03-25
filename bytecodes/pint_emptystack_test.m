@@ -1,2 +1,0 @@
-#empty stack
-pint

@@ -1,6 +1,6 @@
 #include "monty.h"
 
-bytecode_t bytecode = {NULL, NULL, NULL, NULL};
+bytecode_t bytecode = {NULL, NULL, NULL, NULL, 1};
 
 /**
  * main - entry point for the monty program

@@ -16,7 +16,7 @@ void read_lines(stack_t **stack)
 	ssize_t chars = 0;
 	unsigned int line_num = 0;
 	void (*op_func)(stack_t **, unsigned int);
-	int status;
+	int status = 0;
 
 	while (chars != -1)
 	{
@@ -47,18 +47,17 @@ void read_lines(stack_t **stack)
 		free(line);
 	}
 
-/*	if (fclose(bytecode.file) == -1)
-		exit(-1);*/
 	fclose(bytecode.file);
 }
 
 /**
- * get_op_func - returns the function of the found opcode
- *
+ * get_op_func - gets the correct function of the found opcode.
  * @str: string to compare to existing opcode
  *
  * Description: finds the correct opcode and function
- * with the instruction_t struct.
+ *     with the instruction_t struct.
+ *
+ * Return: nothing
  */
 
 void (*get_op_func(char *str)) (stack_t **, unsigned int)
@@ -74,15 +73,15 @@ void (*get_op_func(char *str)) (stack_t **, unsigned int)
 		{"add", monty_add},
 		{"nop", monty_nop},
 		{"sub", monty_sub},
-	/*	{"div", monty_div},
-		{"mul", monty_mul},*/
+		{"div", monty_div},
+		{"mul", monty_mul},
 		{"mod", monty_mod},
 		{"pchar", monty_pchar},
-	/*	{"pstr", monty_pstr},
-		{"rotl", monty_rotl},*/
+		{"pstr", monty_pstr},
+		{"rotl", monty_rotl},
 		{"rotr", monty_rotr},
-	/*	{"stack", monty_stack},
-		{"queue", monty_queue},*/
+		{"stack", monty_stack},
+		{"queue", monty_queue},
 		{NULL, NULL}
 	};
 
@@ -139,19 +138,16 @@ int is_number(char *str)
  */
 int set_global_opcode(char *line)
 {
-	char *token;
 
 	if (line == NULL)
 		return (0);
 
 	/* get opcode 'op' command and its integer argument */
-	token = strtok(line, " \n\t\r");
-	bytecode.op = token;
+	bytecode.op = strtok(line, " \n\t\r");
 
-	if (token)
+	if (bytecode.op)
 	{
-		token = strtok(NULL, " \n\t\r");
-		bytecode.arg = token;
+		bytecode.arg = strtok(NULL, " \n\t\r");
 	}
 	else
 		return (0);

@@ -50,6 +50,7 @@ typedef struct instruction_s
  * @arg: the instruction's integer argument
  * @file: file to open
  * @line: buffer to store a line from file
+ * @mode: stack or queue data
  *
  * Description: carries the opcode, line and file values
  * throughout the program
@@ -60,6 +61,7 @@ typedef struct bytecode_s
 	char *arg;
 	FILE *file;
 	char *line;
+	unsigned int mode;
 } bytecode_t;
 
 extern bytecode_t bytecode;
@@ -76,17 +78,28 @@ int is_number(char *str);
 void free_stack(stack_t **stack);
 
 
+/* ---stack math--- */
+void monty_add(stack_t **head, unsigned int line_num);
+void monty_sub(stack_t **head, unsigned int line_num);
+void monty_div(stack_t **stack, unsigned int line_num);
+void monty_mul(stack_t **stack, unsigned int line_num);
+void monty_mod(stack_t **head, unsigned int line_num);
+
+
 /* ---stack funcs--- */
 void monty_push(stack_t **stack, unsigned int line_num);
 void monty_pall(stack_t **stack, unsigned int line_num);
+void monty_pint(stack_t **head, unsigned int line_num);
+void monty_pop(stack_t **head, unsigned int line_num);
 void monty_swap(stack_t **stack, unsigned int line_num);
 void monty_nop(stack_t **stack, unsigned int line_num);
-void monty_add(stack_t **head, unsigned int line_num);
-void monty_mod(stack_t **head, unsigned int line_num);
-void monty_pint(stack_t **head, unsigned int line_num);
 void monty_pchar(stack_t **head, unsigned int line_num);
-void monty_pop(stack_t **head, unsigned int line_num);
+void monty_pstr(stack_t **stack, unsigned int line_num);
+void monty_rotl(stack_t **stack, unsigned int line_num);
 void monty_rotr(stack_t **head, __attribute__((unused)) unsigned int line_num);
-void monty_sub(stack_t **head, unsigned int line_num);
+void monty_stack(stack_t **stack, unsigned int line_num);
+void monty_queue(stack_t **stack, unsigned int line_num);
+
+void addqueue(stack_t **queue);
 
 #endif /* STACKS */

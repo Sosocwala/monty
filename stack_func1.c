@@ -2,9 +2,15 @@
 
 /**
  * monty_push - pushes a new element to a doubly linked list stack.
- * @stack: the head of the stack(the base)
- * @line_num: the line number of the program
  *
+ * @stack: the head of the stack(the base)
+ * @line_num: current line number
+ *
+ *   bytecode.mode is a global variable:
+ *       if set to 1, then the data is in stack mode
+ *       if set to 0, then the data is in queue mode
+ *
+ *   stack mode is the default mode.
  */
 
 void monty_push(stack_t **stack, unsigned int line_num)
@@ -20,6 +26,12 @@ void monty_push(stack_t **stack, unsigned int line_num)
 		free(bytecode.line);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
+	}
+
+	if (bytecode.mode == 0)
+	{
+		addqueue(stack);
+		return;
 	}
 
 	new = malloc(sizeof(stack_t));
@@ -40,7 +52,7 @@ void monty_push(stack_t **stack, unsigned int line_num)
 	if (head != NULL)
 		head->next = new;
 
-	/* POSITION STACK POINTER to pointer to the top of stack */
+	/* POSITION STACK POINTER to point to the top of stack */
 	*stack = new;
 }
 
@@ -48,8 +60,8 @@ void monty_push(stack_t **stack, unsigned int line_num)
  * monty_pall - prints all the elements of the doubly linked stack
  * from the top.
  *
- * @stack: points to top of the stack
- * @line_num: the line number of the program
+ * @stack: points to the top of the stack
+ * @line_num: current line number
  *
  */
 
@@ -70,48 +82,44 @@ void monty_pall(stack_t **stack, unsigned int line_num)
 /**
  * monty_swap - swaps the top two elements of the stack
  *
- * @stack: points to top of the stack
- * @line_num: the current line number
+ * @stack: points to the top of the stack
+ * @line_num: current line number
  */
 
 void monty_swap(stack_t **stack, unsigned int line_num)
 {
-	stack_t *tail, *top1st, *top2nd;
+	stack_t *top, *top2nd;
+	int temp;
 
-	tail = *stack;
+	top = *stack;
 
 	/* check if the stack has at least two elements */
-	if (tail == NULL || tail->prev == NULL)
+	if (top == NULL || top->prev == NULL)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short", line_num);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_num);
 		fclose(bytecode.file);
 		free(bytecode.line);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
 
-	/* identify top two positions in stack*/
-	top1st = tail;
-	top2nd = tail->prev;
+	top2nd = top->prev;
 
-	/* swap positions */
-	top1st->prev = top2nd->prev;
-	top2nd->next = top1st->next;
-
-	top1st->next = top2nd;
-	top2nd->prev = top1st;
-
-	*stack = top2nd;
+	/* swap element values */
+	temp = top->n;
+	top->n = top2nd->n;
+	top2nd->n = temp;
 }
 
 /**
  * monty_nop - does nothing
  *
- * @stack: base of the stack
- * @line_num: current line_ number
+ * @stack: points to the top of the stack
+ * @line_num: current line number
  */
 
-void monty_nop(__attribute__((unused)) stack_t **stack, unsigned int line_num)
+void monty_nop(stack_t **stack, unsigned int line_num)
 {
+	(void) stack;
 	(void) line_num;
 }
